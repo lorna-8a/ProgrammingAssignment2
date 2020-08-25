@@ -1,15 +1,38 @@
-## Put comments here that give an overall description of what your
-## functions do
+## assigment No.2 for cursera datascience
+## 
 
-## Write a short comment describing this function
+## initialize a matrix 
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  m <- NULL
+  set <- function(y) {
+    x <<- y
+    m <<- NULL
+  }
+  get <- function() x
+  setinverse <- function(solve) m <<- solve(x)
+  getinverse <- function() m
+  list(set = set, get = get,
+       setinverse = setinverse,
+       getinverse = getinverse)
 }
 
 
-## Write a short comment describing this function
+
+
+
+## Verify if is already stored or calculate its inverse
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+  h <- x$getinverse()
+  if(!is.null(h)) {
+    message("getting cached data")
+    return(h)
+  }
+  data <- x$get()
+  h <- solve(data, ...)
+  x$setinverse(h)
+  h
 }
+
